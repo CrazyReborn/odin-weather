@@ -12,7 +12,7 @@ async function getLocationData() {
 
 async function getImage () {
     try {
-        const gif = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KrQBTKUAQewMdpvUMjmStSd5z8mAYw4D&weirdness=0&s=weather_${weather}`, {mode: 'cors'});
+        const gif = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KrQBTKUAQewMdpvUMjmStSd5z8mAYw4D&weirdness=0&s=${weather}_weather_outside`, {mode: 'cors'});
         const data = await gif.json();
         return data;
     } catch (error) {
@@ -49,7 +49,6 @@ async function displayInfo () {
     const infoTemp = info.main.temp;
     const infoName = info.name;
     weather = info.weather[0].main;
-    console.log(weather);
 
     locationNameOnPage.textContent += infoName;
     locationTempOnPage.textContent += infoTemp + ' Cel';
