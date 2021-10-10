@@ -18,6 +18,23 @@ const locationFind = (() => {
 //On submit display info
 document.querySelector('form').addEventListener('submit', e => {
     getLocationData();
-    console.log(getLocationData());
+    displayInfo();
     e.preventDefault();
 })
+
+//Change page content
+async function displayInfo () {
+    const locationNameOnPage = document.querySelector('#location');
+    const locationTempOnPage = document.querySelector('#temperature');
+
+    //Reset textcontent to prevent overflow;
+    locationNameOnPage.textContent = 'Location: '
+    locationTempOnPage.textContent = 'Temperature: ';
+
+    const info = await getLocationData();
+    const infoTemp = info.main.temp;
+    const infoName = info.name;
+
+    locationNameOnPage.textContent += infoName;
+    locationTempOnPage.textContent += infoTemp + ' Cel';
+}
