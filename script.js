@@ -10,6 +10,18 @@ async function getLocationData() {
         }
 }
 
+async function getImage () {
+    try {
+        const gif = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KrQBTKUAQewMdpvUMjmStSd5z8mAYw4D&weirdness=0&s=weather_${weather}`, {mode: 'cors'});
+        const data = await gif.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+let weather;
 //Create a function that tracks for location value
 const locationFind = (() => {
     let name = document.querySelector('input[type="search"]').value;
@@ -17,8 +29,8 @@ const locationFind = (() => {
 });
 //On submit display info
 document.querySelector('form').addEventListener('submit', e => {
-    getLocationData();
     displayInfo();
+    displayImage();
     e.preventDefault();
 })
 
@@ -36,7 +48,17 @@ async function displayInfo () {
     locationTempOnPage.textContent = 'Temperature: ';
     const infoTemp = info.main.temp;
     const infoName = info.name;
+    weather = info.weather[0].main;
+    console.log(weather);
 
     locationNameOnPage.textContent += infoName;
     locationTempOnPage.textContent += infoTemp + ' Cel';
+}
+
+//Display image
+async function displayImage() {
+    const imageOnPage = document.querySelector('img');
+    const image = await getImage();
+    imageOnPage.src = '';
+    imageOnPage.src = image.data.images.downsized_medium.url
 }
