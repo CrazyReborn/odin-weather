@@ -28,10 +28,12 @@ async function displayInfo () {
     const locationTempOnPage = document.querySelector('#temperature');
 
     //Reset textcontent to prevent overflow;
-    locationNameOnPage.textContent = 'Location: '
-    locationTempOnPage.textContent = 'Temperature: ';
+    locationNameOnPage.textContent = 'Loading...'
+    locationTempOnPage.textContent = '';
 
     const info = await getLocationData();
+    locationNameOnPage.textContent = 'Location: ';
+    locationTempOnPage.textContent = 'Temperature: ';
     const infoTemp = info.main.temp;
     const infoName = info.name;
 
